@@ -11,7 +11,7 @@
 <section id="detail" class="panel" hidden><button class="back" onclick="openBuy()">← 返回柜门列表</button><div id="detailContent"></div><p class="notice" style="margin-top:25px">本页仅展示商品资料，无付款、预订或实际取件功能。示例物品未经过真实检测。</p></section>
 <p class="hint" style="text-align:center;margin-top:25px"><button class="back" onclick="resetDemo()">清除本地资料并恢复示例</button></p></main><footer>便易 · 基本交互原型｜本地浏览器存储 · 无后端连接</footer><script>
 const KEY='bianyi_demo_v1';
-const examples=()=>[{door:1,category:'照明电器',name:'LED 护眼台灯（示例）',model:'Demo-L01',length:18,width:15,height:38,price:65,owner:'示例同学 A',contact:'student-a@ust.hk'},{door:3,category:'风扇及空气处理电器',name:'桌面风扇（示例）',model:'Demo-F02',length:20,width:18,height:28,price:90,owner:'示例同学 B',contact:'student-b@ust.hk'},{door:6,category:'电脑及周边设备',name:'电脑音箱（示例）',model:'Demo-S03',length:12,width:10,height:16,price:120,owner:'示例同学 C',contact:'student-c@ust.hk'}];
+const examples=()=>[{door:1,category:'照明电器',name:'LED 台灯（示例）',model:'Demo-L01',length:18,width:15,height:38,price:65,owner:'示例同学 A',contact:'student-a@ust.hk'},{door:3,category:'风扇及空气处理电器',name:'桌面风扇（示例）',model:'Demo-F02',length:20,width:18,height:28,price:90,owner:'示例同学 B',contact:'student-b@ust.hk'},{door:6,category:'电脑及周边设备',name:'电脑音箱（示例）',model:'Demo-S03',length:12,width:10,height:16,price:120,owner:'示例同学 C',contact:'student-c@ust.hk'}];
 let items;let persistent=true;try{const raw=localStorage.getItem(KEY);items=raw?JSON.parse(raw):examples();if(!Array.isArray(items))items=examples();}catch(e){items=examples();persistent=false;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(items));return true;}catch(e){persistent=false;return false;}}
 function show(id){for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!==id;window.scrollTo(0,0);}
@@ -35,8 +35,8 @@ function buildProductPreview(item){
  function load(retry=false){state.textContent=window.modelComponentFailed?'3D组件加载失败，请检查网络并刷新。':'正在加载 '+config.file+' …';viewer.setAttribute('src','./'+config.file+(retry?'?reload='+Date.now():''));}
  const controls=el('div',undefined,'model-controls'),rotate=el('button','暂停旋转'),reset=el('button','重置视角'),retry=el('button','重新加载');for(const b of [rotate,reset,retry])b.type='button';
  rotate.onclick=()=>{const run=viewer.hasAttribute('auto-rotate');viewer.toggleAttribute('auto-rotate',!run);rotate.textContent=run?'自动旋转':'暂停旋转';};reset.onclick=()=>{viewer.setAttribute('camera-orbit','35deg 70deg auto');viewer.setAttribute('camera-target','auto auto auto');viewer.setAttribute('field-of-view','auto');if(viewer.jumpCameraToGoal)viewer.jumpCameraToGoal();};retry.onclick=()=>load(true);controls.append(rotate,reset,retry);
- const note=el('p','同类产品展示模型，非本件二手商品的实物扫描；外观、配件和成色以实物为准。模型由本站加载，3D显示组件需要联网。','hint');
- const credit=el('p','模型版权归相应作者所有。发布时请依据实际下载模型的许可补充作者、来源及必要署名；当前尚未核验三个GLB文件。','hint');
+ const note=el('p','','hint');
+ const credit=el('p','','hint');
  card.append(viewer,state,controls,note,credit);load();return card;
 }
 </script></body></html>
