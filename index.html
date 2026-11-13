@@ -35,8 +35,6 @@ function buildProductPreview(item){
  function load(retry=false){state.textContent=window.modelComponentFailed?'3D组件加载失败，请检查网络并刷新。':'正在加载 '+config.file+' …';viewer.setAttribute('src','./'+config.file+(retry?'?reload='+Date.now():''));}
  const controls=el('div',undefined,'model-controls'),rotate=el('button','暂停旋转'),reset=el('button','重置视角'),retry=el('button','重新加载');for(const b of [rotate,reset,retry])b.type='button';
  rotate.onclick=()=>{const run=viewer.hasAttribute('auto-rotate');viewer.toggleAttribute('auto-rotate',!run);rotate.textContent=run?'自动旋转':'暂停旋转';};reset.onclick=()=>{viewer.setAttribute('camera-orbit','35deg 70deg auto');viewer.setAttribute('camera-target','auto auto auto');viewer.setAttribute('field-of-view','auto');if(viewer.jumpCameraToGoal)viewer.jumpCameraToGoal();};retry.onclick=()=>load(true);controls.append(rotate,reset,retry);
- const note=el('p','同类产品展示模型，非本件二手商品的实物扫描；外观、配件和成色以实物为准。模型由本站加载，3D显示组件需要联网。','hint');
- const credit=el('p','模型版权归相应作者所有。发布时请依据实际下载模型的许可补充作者、来源及必要署名；当前尚未核验三个GLB文件。','hint');
  card.append(viewer,state,controls,note,credit);load();return card;
 }
 </script></body></html>
